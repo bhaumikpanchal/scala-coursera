@@ -23,10 +23,27 @@ object Main {
   /**
    * Exercise 2
    */
-    def balance(chars: List[Char]): Boolean = ???
-  
+  def balance(chars: List[Char]): Boolean = {
+
+    def balance0(chars: List[Char], count: Int): Int = {
+      if(chars.isEmpty || count < 0) count
+      else if (chars.head == '(') balance0(chars.tail, count + 1)
+      else if (chars.head == ')') balance0(chars.tail, count - 1 )
+      else balance0(chars.tail, count)
+    }
+
+    balance0(chars, 0) == 0
+  }
+
   /**
    * Exercise 3
    */
-    def countChange(money: Int, coins: List[Int]): Int = ???
+  def countChange(money: Int, coins: List[Int]): Int = {
+    if(money == 0) 1
+    else if(money < 0 || coins.isEmpty) 0
+    else if(money <= 0 && !coins.isEmpty) 0
+    else countChange(money, coins.tail) + countChange(money - coins.head, coins)
+  }
+
+
 }
